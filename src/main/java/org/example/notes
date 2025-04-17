@@ -1,0 +1,12 @@
+Goal:
+To gather AQI from multiple reliable resources.
+https://www.airnow.gov/?city=Chicago&state=IL&country=USA
+What is AQI? Air Quality Index which is a number that indicates how clean the air is. It also indicated wheater its a health risk or not.
+Its measured by the number of pollutants like ozone, particulate matter (PM2.5 and PM10), Nitrogen Dioxide, and carbon monoxide.
+AQI ranges from 0 to 500, with higher numbers indicated bad air quality.
+
+AQI also calculates PM which stands for particulate matter: which are tiny particles or droplets in the air that you can inhalde into your
+lungs.
+
+PM10 <= 10 micrometers dust, pollen, mold
+PM2.5 <=2.5 micrometers car exhaust, industrial smoke, smog

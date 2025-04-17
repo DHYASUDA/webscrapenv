@@ -1,0 +1,17 @@
+<!Doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+</head>
+<body>
+<div>
+    <h1 id="title" >AQI scraped</h1>
+    <h2 id="description">This project webscrapes AQI data from World's Air Pollution: Real-time Air Quality Index</h2>
+</div>
+
+<div id="data">
+    <p>Current AQI: <strong th:text="${aqivalue}"> Loading...</strong></p>
+</div>
+</body>
+</html>
