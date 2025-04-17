@@ -7,20 +7,25 @@ plugins {
 group = 'org.example'
 version = '1.0-SNAPSHOT'
 
+java {
+    sourceCompatibility = '17'
+    targetCompatibility = '17'
+}
+
 repositories {
     mavenCentral()
+    gradlePluginPortal() // ✅ Optional: extra safety
 }
 
 dependencies {
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.0.0'
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.jsoup:jsoup:1.17.2'
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-}
 
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
 
 test {
     useJUnitPlatform()

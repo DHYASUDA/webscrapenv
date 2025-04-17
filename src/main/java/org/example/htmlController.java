@@ -6,9 +6,17 @@ import org.springframework.ui.Model;
 public class htmlController {
     @GetMapping("/api/AQITEST")
     public String getHtml(Model model){
-        int aqi = 54;
-        int testaqi = Main.city1aqi();
-        model.addAttribute("aqivalue", testaqi);//sends it to the html template, edit over there.
+        //city 1
+        int city1AQI = Main.getCity1AQI();
+        String city1Name = Main.getCity1Name();
+        //city 2
+        int city2AQI = Main.getCity2AQI();
+        String city2Name = Main.getCity2Name();
+        model.addAttribute("aqivalue", city1AQI);//sends it to the html template, edit over there.
+        model.addAttribute("city1name", city1Name);
+
+        model.addAttribute("aqivalue2", city2AQI);//sends it to the html template, edit over there.
+        model.addAttribute("city2name", city2Name);
         return "index";
 
     }
