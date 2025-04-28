@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -11,57 +12,76 @@
         h1 {
             text-align: center;
         }
+        .error-message {
+            text-align: center;
+            color: red;
+        }
     </style>
 </head>
 <body>
     <h1>AQI for All Cities</h1>
-    <div id="graphContainer">
+    <div th:if="${citiesAQI.isEmpty()}" class="error-message">
+        <p>No AQI data available. Please try again later.</p>
+    </div>
+    <div id="graphContainer" th:unless="${citiesAQI.isEmpty()}">
         <canvas id="aqiChart"></canvas>
     </div>
 
     <script th:inline="javascript">
-        // Extract city names and AQI values from Thymeleaf
         const cities = /*[[${citiesAQI}]]*/ [];
-        const cityNames = cities.map(city => city.city);
-        const aqiValues = cities.map(city => city.aqi);
+        if (cities.length > 0) {
+            const cityNames = cities.map(city => city.city);
+            const aqiValues = cities.map(city => city.aqi);
 
-        // Create the bar chart
-        const ctx = document.getElementById('aqiChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: cityNames,
-                datasets: [{
-                    label: 'AQI',
-                    data: aqiValues,
-                    backgroundColor: 'rgba(48, 148, 182, 0.6)',
-                    borderColor: 'rgba(48, 148, 182, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'AQI Value'
+            const ctx = document.getElementById('aqiChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: cityNames,
+                    datasets: [{
+                        label: 'AQI',
+                        data: aqiValues,
+                        backgroundColor: aqiValues.map(aqi => {
+                            if (aqi <= 50) return 'rgba(0, 255, 0, 0.6)';
+                            if (aqi <= 100) return 'rgba(255, 255, 0, 0.6)';
+                            if (aqi <= 150) return 'rgba(255, 165, 0, 0.6)';
+                            return 'rgba(255, 0, 0, 0.6)';
+                        }),
+                        borderColor: 'rgba(48, 148, 182, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'AQI Value'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'City'
+                            },
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
                         }
                     },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'City'
+                    plugins: {
+                        legend: {
+                            display: true
                         }
                     }
-                },
-                plugins: {
-                    legend: {
-                        display: true
-                    }
                 }
-            }
-        });
+            });
+        } else {
+            console.log("No AQI data available for graph");
+        }
     </script>
 </body>
 </html>

@@ -37,8 +37,7 @@ public class Main {
         "Dublin", "Beijing", "Lima"
     );
 
-    
-
+   
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
         // When app first starts, scrape Chicago and Ukiah
@@ -136,7 +135,7 @@ public class Main {
                     result.add(cityData);
                 }
             } catch (Exception e) {
-                //System.out.println("Failed to fetch AQI for " + city + " (API name: " + apiCityName + "): " + e.getMessage());
+               //System.out.println("Failed to fetch AQI for " + city + " (API name: " + apiCityName + "): " + e.getMessage());
                 Map<String, Object> cityData = new HashMap<>();
                 cityData.put("city", city);
                 cityData.put("aqi", -1);
