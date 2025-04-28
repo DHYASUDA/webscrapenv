@@ -1,0 +1,11 @@
+#boxes {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.data1, .data2 {
+    width: 45%;
+    background-color: rgb(48, 148, 182);
+    padding: 20px;
+    box-sizing: border-box;
+}

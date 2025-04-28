@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>AQI Graph</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #graphContainer {
+            width: 80%;
+            margin: 20px auto;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>AQI for All Cities</h1>
+    <div id="graphContainer">
+        <canvas id="aqiChart"></canvas>
+    </div>
+
+    <script th:inline="javascript">
+        // Extract city names and AQI values from Thymeleaf
+        const cities = /*[[${citiesAQI}]]*/ [];
+        const cityNames = cities.map(city => city.city);
+        const aqiValues = cities.map(city => city.aqi);
+
+        // Create the bar chart
+        const ctx = document.getElementById('aqiChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: cityNames,
+                datasets: [{
+                    label: 'AQI',
+                    data: aqiValues,
+                    backgroundColor: 'rgba(48, 148, 182, 0.6)',
+                    borderColor: 'rgba(48, 148, 182, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'AQI Value'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'City'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
